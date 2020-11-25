@@ -1,0 +1,80 @@
+problemset02 23 2020
+elakkiya.mamallan@accenture.com
+
+Write a valid SQL statement that calculates the total weight of all corn cobs that were picked from the garden:
+
+select sum(weight) from picked where plantfk=2;
+
+17.54
+
+For some reason Erin has change his location for picking the tomato to North. Write the corresponding query.
+
+ UPDATE planted set locationfk=1 where plantfk=3;
+ 
+ 
+ Insert a new column 'Exper' of type Number (30) to the 'gardener' table which stores Experience of the of person. How will you modify this to varchar2(30).
+ 
+ Alter table gardener add (exper number(30));
+ alter table gardener modify exper varchar2(30);
+ 
+ 
+ Write a query to find the plant name which required seeds less than 20 which plant on 14-APR
+ 
+select name from plant p inner join planted pp on p.plantid=pp.plantfk where seeds < 20 AND substr(date1,1,6)='14-APR';
+
+Carrot
+
+List the amount of sunlight and water to all plants with names that start with letter 'c' or letter 'r'.
+
+select sunlight,water,name from plant where name like 'C%' OR name LIKE 'R%';
+
+0.26|0.82|Carrot
+0.44|0.76|Corn
+0.28|0.84|Radish
+
+Write a valid SQL statement that displays the plant name and the total amount of seed required for each plant that were plant in the garden. The output should be in descending order of plant name.
+
+select plant.name,sum(seeds) from plant inner join planted on plant.plantid=planted.plantfk group by plant.name order by plant.name desc;
+
+Tomato|38
+Radish|30
+Lettuce|30
+Corn|32
+Carrot|42
+Beet|36
+
+Write a valid SQL statement that calculates the average number of items produced per seed planted for each plant type:( (Average Number of Items = Total Amount Picked / Total Seeds Planted.)
+
+select p.plantfk,round((sum(amount)/sum(seeds)),2) as average from planted p inner join picked pp on p.plantfk=pp.plantfk group by p.plantfk;
+
+0|0.0
+2|2.0
+3|0.0
+4|0.0
+
+Write a valid SQL statement that would produce a result set like the following:
+
+ name |  name  |    date    | amount 
+------|--------|------------|-------- 
+ Tim  | Radish | 2012-07-16 |     23 
+ Tim  | Carrot | 2012-08-18 |     28 
+ 
+select g.name,pp.name,date1,amount from gardener g inner join picked p on g.gardenerid=p.gardenerfk inner join plant pp on p.plantfk=pp.plantid where g.gardenerid=2 AND locationfk=0;
+
+Tim|Carrot|18-AUG-2012|28
+Tim|Radish|16-JUL-2012|23
+
+Find out persons who picked from the same location as he/she planted.
+
+select name from gardener where gardenerid IN (select p.gardenerfk from planted p inner join picked pp on p.locationfk=pp.locationfk where p.plantfk=pp.plantfk AND p.gardenerfk=pp.gardenerfk);
+
+Father
+Tim
+Erin
+
+Create a view that lists all the plant names picked from all locations except ’West’ in the month of August.
+
+CREATE VIEW picked_aug as SELECT name from plant where plantid IN(select plantfk from picked where locationfk <> 2 AND substr(date1,4,3)='AUG');
+ 
+
+
