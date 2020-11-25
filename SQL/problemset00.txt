@@ -1,1 +1,144 @@
+ProblemSet00, November 19 2020
 elakkiya.mamallan@accenture.com
+
+Select the Employee with the top three salaries 
+
+select name from employee order by salary desc limit 3;
+
+TARA CUMMINGS
+PAUL VINCENT
+ADAM WAYNE
+
+Select the Employee with the least salary
+
+select name from employee where salary IN (select min(salary) from employee);
+
+JOHN HELLEN
+
+Select the Employee who does not have a manager in the department table
+
+SELECT name from employee e inner join dept d on e.dep_id=e.dep_id where dep_manager is NULL;
+
+
+
+Select the Employee who is also a Manager
+
+select name from employee where name IN (select dep_manager from dept );
+
+BRUCE WILLS
+TIM ARCHER
+ADAM JUSTIN
+ROBERT SWIFT
+NATASHA STEVENS
+
+Select the Empolyee who is a Manager and has least salary
+
+select name from employee inner join dept on employee.name=dept.dep_manager order by salary asc limit 1;
+
+ROBERT SWIFT
+
+Select the total number of Employees in Communications departments
+
+select count(name) from employee where dep_id ="D02" group by dep_id;
+
+6
+
+Select the Employee in Finance Department who has the top salary
+
+select name from employee where dep_id="D05" order by salary desc limit 1;
+
+ADAM WAYNE
+
+Select the Employee in product depatment who has the least salary
+
+select name from employee where dep_id="D03" order by salary asc limit 1;
+
+NICK MARTIN
+
+Select the count of Empolyees in Health with maximum salary
+
+select count(name) from employee where dep_id="D01" AND salary IN(select max(salary) from employee group by dep_id);
+
+1
+
+Select the Employees who report to Natasha Stevens
+
+select name from employee e inner join dept d on e.dep_id=d.dep_id WHERE e.dep_id="D05" AND name<>"NATASHA STEVENS";
+
+ADAM WAYNE
+JOSEPH ANGELIN
+
+Display the Employee name,Employee count,Dep name,Dept manager in the Health department
+
+select DISTINCT name,count(name),dep_name,dep_manager from employee e inner join dept d on e.dep_id=d.dep_id where e.dep_id="D01" group by e.dep_id;
+
+MARTIN TREDEAU|6|HEALTH|TIM ARCHER
+
+Display the Department id,Employee ids and Manager ids for the Communications department
+
+select dep_id,e_id,manager_id from employee where dep_id="D02";
+
+D02|A116|A187
+D02|A198|A187
+D02|A187|A298
+D02|A121|A187
+D02|A194|A187
+D02|A133|A187
+
+Select the Average Expenses for Each dept with Dept id and Dept name
+
+select avg(salary),e.dep_id,dep_name from employee e inner join dept d on e.dep_id=d.dep_id group by e.dep_id;
+
+54527.66|D01|HEALTH
+48271.33|D02|COMMUNICATIONS
+58517.5|D03|PRODUCT
+51913.33|D04|INSURANCE
+56660.33|D05|FINANCE
+
+Select the total expense for the department finance
+
+select sum(salary) from employee where dep_id="D05" GROUP BY dep_id;
+
+169981
+
+Select the department which spends the least with Dept id and Dept manager name
+
+select sum(salary) as total_expenses,e.dep_id,dep_manager from employee e inner join dept d on e.dep_id=d.dep_id group by e.dep_id order by total_expenses asc limit 1;
+
+117035|D03|BRUCE WILLS
+
+Select the count of Employees in each department
+
+select e.dep_id,dep_name, count(name) from employee e inner join dept d on e.dep_id=d.dep_id Group by e.dep_id;
+
+D01|HEALTH|6
+D02|COMMUNICATIONS|6
+D03|PRODUCT|2
+D04|INSURANCE|3
+D05|FINANCE|3
+
+Select the count of Employees in each department having salary <10000
+
+select e.dep_id,dep_name, count(name) from employee e inner join dept d on e.dep_id=d.dep_id where salary<10000 Group by e.dep_id;
+
+
+
+Select the total number of Employees in Dept id D04
+
+select count(name) from employee where dep_id="D04";
+
+3
+
+Select all department details of the Department with Maximum Employees
+
+select d.dep_id,dep_name,dep_manager, count(e.name) as total_emp from employee e inner join dept d on e.dep_id=d.dep_id group by e.dep_id order by total_emp desc limit 2;
+
+D02|COMMUNICATIONS|ADAM JUSTIN|6
+D01|HEALTH|TIM ARCHER|6
+
+Select the Employees who has Tim Cook as their manager
+
+select name from employee e inner join dept d on e.dep_id=d.dep_id WHERE d.dep_manager="TIM COOK";
+
+
+
