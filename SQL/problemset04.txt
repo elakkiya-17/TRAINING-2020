@@ -1,0 +1,73 @@
+Problemset04 25 2020
+elakkiya.mamallan@acccenture.com
+
+1)Find the names of all students who are friends with someone named Gabriel. (1 point possible)
+
+select name from highschooler h inner join friend f on h.id=f.id1 where f.id2 IN(1689,1911);
+
+Jordan
+Alexis
+Cassandra
+Andrew
+Jessica
+
+2)For every student who likes someone 2 or more grades younger than themselves, return that student's name and grade, and the name and grade of the student they like. (1 point possible)
+
+
+
+3)For every pair of students who both like each other, return the name and grade of both students. Include each pair only once, with the two names in alphabetical order. (1 point possible)
+
+select distinct h.name,h.grade,h1.name,h1.grade from highschooler h inner join likes  l on h.id=l.id1 inner join highschooler h1 on h1.id=l.id2 where l.id1 IN(select l2.id1 from likes l2 inner join likes l3 on l2.id1=l3.id2 where l2.id1=l3.id2 and l2.id2=l3.id1)order by h.name,h1.name;
+
+Cassandra|9|Gabriel|9
+Gabriel|9|Cassandra|9
+Jessica|11|Kyle|12
+Kyle|12|Jessica|11
+
+4)Find all students who do not appear in the Likes table (as a student who likes or is liked) and return their names and grades. Sort by grade, then by name within each grade. (1 point possible)
+
+select id,name,grade from highschooler where id NOT IN(select id1 from likes) AND id not in(select id2 from likes)order by grade,name;
+
+1510|Jordan|9
+1381|Tiffany|9
+1661|Logan|12
+
+5)For every situation where student A likes student B, but we have no information about whom B likes (that is, B does not appear as an ID1 in the Likes table), return A and B's names and grades. (1 point possible)
+
+select h.name,h.grade,h1.name,h1.grade from highschooler h inner join likes  l on h.id=l.id1 inner join highschooler h1 on h1.id=l.id2 where l.id2 NOT IN(select l2.id1 from likes L2);
+
+Alexis|11|Kris|10
+Brittany|10|Kris|10
+Austin|11|Jordan|12
+John|12|Haley|10
+
+6)Find names and grades of students who only have friends in the same grade. Return the result sorted by grade, then by name within each grade. (1 point possible)
+
+select h.name, h.grade from highschooler h inner join friend f on h.id=f.id1 inner join highschooler h1 on h1.id=f.id2 where h.grade=h1.grade order by h.grade,h.name;
+
+Cassandra|9
+Gabriel|9
+Gabriel|9
+Jordan|9
+Jordan|9
+Tiffany|9
+Andrew|10
+Brittany|10
+Brittany|10
+Haley|10
+Haley|10
+Kris|10
+Kris|10
+Kris|10
+Alexis|11
+Alexis|11
+Gabriel|11
+Gabriel|11
+Jessica|11
+Jessica|11
+John|12
+Jordan|12
+Jordan|12
+Kyle|12
+Logan|12
+Logan|12
