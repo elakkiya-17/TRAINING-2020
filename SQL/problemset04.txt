@@ -71,3 +71,53 @@ Jordan|12
 Kyle|12
 Logan|12
 Logan|12
+
+7)
+
+
+8)Find the difference between the number of students in the school and the number of different first names. (1 point possible)
+
+select all1.total_name-uni.uni_name from (select count(name) as total_name from highschooler) as all1,(select count(distinct name) as uni_name from highschooler) as uni;
+
+2
+
+9)Find the name and grade of all students who are liked by more than one other student. (1 point possible)
+
+select distinct name,grade from highschooler h inner join likes l on h.id=l.id2 where id2 in (select id2 from likes group by id2 having count(id2)>1 ) and id2 in (select id1 from likes);
+
+Cassandra|9
+
+10)For every situation where student A likes student B, but student B likes a different student C, return the names and grades of A, B, and C. (1 point possible)
+
+select h1.name,h1.grade,h2.name,h2.grade,h3.name,h3.grade from highschooler h1,highschooler h2,highschooler h3 ,likes l1,likes l2
+where h1.id=l1.id1 and h2.id=l1.id2 and (h2.id=l2.id1 and h3.id=l2.id2 and h3.id <>h1.id);
+
+Andrew|10|Cassandra|9|Gabriel|9
+Gabriel|11|Alexis|11|Kris|10
+
+11)Find those students for whom all of their friends are in different grades from themselves. Return the students' names and grades.(1 point possible)
+
+select name,grade from highschooler  h where grade not in (select grade from highschooler h1 inner join friend f on h.id=f.id1 and h1.id=f.id2);
+
+Austin|11
+
+12)What is the average number of friends per student? (Your result should be just one number.) (1 point possible)
+
+select avg(total) from (select count(id2)  as total  from friend group by id1);
+
+2.5
+
+13)Find the number of students who are either friends with Cassandra or are friends of friends of Cassandra. Do not count Cassandra, even though technically she is a friend of a friend.
+
+select count(*) from friend where id1 in (select id2 from friend where id1 =1709);
+
+7
+
+14)Find the name and grade of the student(s) with the greatest number of friends. (1 point possible)
+
+select name,grade from highschooler h inner join friend f on h.id=f.id1 group by id1 having count(id2)=(select max(count) from (select count(id2) as count from friend group by id1));
+
+Alexis|11
+Andrew|10
+
+
