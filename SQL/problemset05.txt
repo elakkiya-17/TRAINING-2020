@@ -41,3 +41,28 @@ Theo Mengel|12/08/1948|banjo
 7)List the name and the number of players for the band whose number of players is greater than the average number of players in each band. (1 point possible)
 
 
+
+8)List the names of musicians who both conduct and compose and live in Britain. 
+
+select m_name from musician m,composer c,performance p where m.m_no=c.comp_is and m.m_no=p.conducted_by and m.living_in in(1,2,5,6,7) group by m_name;
+
+Fred Bloggs
+Jeff Dawn
+Phil Hot
+Rose Spring
+Tony Smythe
+
+9)Show the least commonly played instrument and the number of musicians who play it. (1 point possible)
+
+select instrument from performer group by instrument having count(perf_is) in (select min(d) from (select count(perf_is) as d from performer group by instrument)as c);
+
+banjo
+clarinet
+cornet
+horn
+trombone
+trumpet
+
+
+
+
