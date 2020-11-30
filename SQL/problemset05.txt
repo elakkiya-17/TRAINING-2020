@@ -7,7 +7,22 @@ SELECT m_name from musician where m_no in (select concert_orgniser from concert 
 
 James Steeple
 
-2)
+2)Find all the performers who played guitar or violin and were born in England. (1 point possible)
 
+select m_name from musician m,place p ,performer pp where m.m_no=pp.perf_is and m.born_in=p.place_no and place_no in(1,5,7) group by m_name;
 
+Alan Fluff
+Dawis Heavan
+Harriet Smithson
+Harry Forte
+James First
+Theo Mengel
+
+3)List the names of musicians who have conducted concerts in USA together with the towns and dates of these concerts.
+
+select m.m_name,p.place_town,c.con_date from musician m,place p,concert c where m.m_no=c.concert_orgniser and c.concert_in=p.place_no and concert_in in (4,8);
+
+James Steeple|New York|1997-06-15
+
+4)
 
