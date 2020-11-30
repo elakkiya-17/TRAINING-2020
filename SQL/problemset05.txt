@@ -1,7 +1,13 @@
 problemset05 27 2020
 elakkiya.mamallan@accenture.com
 
-1)Give the organiser's name of the concert in the Assembly Rooms after the first of Feb, 1997. 
+1)Give the organiser's name of the concert in the Assembly Rooms after the first of Feb, 1997.
+
+SELECT m_name from musician where m_no in (select concert_orgniser from concert where concert_venue ='Assembly Rooms' and con_date > '01/02/97');
+
+James Steeple
+
+2)
 
 
 
