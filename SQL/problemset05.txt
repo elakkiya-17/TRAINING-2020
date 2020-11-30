@@ -28,3 +28,16 @@ James Steeple|New York|1997-06-15
 
 5)List the different instruments played by the musicians and avg number of musicians who play the instrument.
 
+6)List the names, dates of birth and the instrument played of living musicians who play a instrument which Theo also plays. (1 point possible)
+
+select m.m_name,m.born,p.instrument from musician m,performer p where m.m_no=p.perf_is and p.instrument in ('banjo','violin','drums') and m.died is null group by m.m_name;
+
+Harry Forte|28/02/1951|drums
+James First|10/06/1965|violin
+Jeff Dawn|12/12/1945|violin
+John Smith|03/03/50|violin
+Theo Mengel|12/08/1948|banjo
+
+7)List the name and the number of players for the band whose number of players is greater than the average number of players in each band. (1 point possible)
+
+
