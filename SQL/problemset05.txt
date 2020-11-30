@@ -24,5 +24,7 @@ select m.m_name,p.place_town,c.con_date from musician m,place p,concert c where 
 
 James Steeple|New York|1997-06-15
 
-4)
+4)How many concerts have featured at least one composition by Andy Jones? List concert date, venue and the composition's title. (1 point possible)
+
+5)List the different instruments played by the musicians and avg number of musicians who play the instrument.
 
