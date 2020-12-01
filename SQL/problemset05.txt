@@ -63,6 +63,18 @@ horn
 trombone
 trumpet
 
+10)
+
+11)List the name and town of birth of any performer born in the same city as James First.(1 point possible)
+
+select m_name,place_town from musician m,place p,performer pp where m.m_no=pp.perf_is and m.born_in=p.place_no and place_no = 7  and m_name <>'James First' group by m_name;
+
+Alan Fluff|London
+Theo Mengel|London
+
+12)Create a list showing for EVERY musician born in Britain the number of compositions and the number of instruments played. (1 point possible)
+
+13)Give the band name, conductor and contact of the bands performing at the most recent concert in the Royal Albert Hall. (1 point possible)
 
 
 
