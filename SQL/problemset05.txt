@@ -26,7 +26,27 @@ James Steeple|New York|1997-06-15
 
 4)How many concerts have featured at least one composition by Andy Jones? List concert date, venue and the composition's title. (1 point possible)
 
+select con_date,concert_venue,c_title from composition c,concert cc where c.c_in =cc.concert_in and c_no in (select cmpn_no from has_composed where cmpr_no in(select comp_no from composer where comp_is in(select m_no from musician where m_name='Andy Jones')))order by con_date desc limit 1;
+
+1997-09-20|Assembly Rooms|A Simple Piece
+
 5)List the different instruments played by the musicians and avg number of musicians who play the instrument.
+
+select instrument,count(*) from performer group by instrument;
+
+banjo|1
+bass|3
+cello|3
+clarinet|1
+cornet|1
+drums|2
+flute|2
+guitar|2
+horn|1
+trombone|1
+trumpet|1
+viola|4
+violin|7
 
 6)List the names, dates of birth and the instrument played of living musicians who play a instrument which Theo also plays. (1 point possible)
 
@@ -39,6 +59,12 @@ John Smith|03/03/50|violin
 Theo Mengel|12/08/1948|banjo
 
 7)List the name and the number of players for the band whose number of players is greater than the average number of players in each band. (1 point possible)
+
+select c.name,c.id from (select band_name as name,count(player)as id from band,plays_in where band_no=band_id group by band_id)as c where c.id > (select count(distinct player)/count(distinct band_id) from plays_in);
+
+ROP|7
+AASO|7
+Oh well|6
 
 
 
