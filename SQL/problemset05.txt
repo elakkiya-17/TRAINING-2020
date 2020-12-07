@@ -89,7 +89,15 @@ horn
 trombone
 trumpet
 
-10)
+10)List the bands that have played music composed by Sue Little; Give the titles of the composition in each case. 
+
+select band_name,c_title from band b,composition c,performance p where b.band_no=p.gave and c.c_no=p.performed and performed in (12,20);
+
+BBSO|Slow Symphony Blowing
+The left Overs|Slow Song
+Somebody Loves this|Slow Symphony Blowing
+Swinging strings|Slow Song
+BBSO|Slow Song
 
 11)List the name and town of birth of any performer born in the same city as James First.(1 point possible)
 
@@ -100,7 +108,29 @@ Theo Mengel|London
 
 12)Create a list showing for EVERY musician born in Britain the number of compositions and the number of instruments played. (1 point possible)
 
+
+
 13)Give the band name, conductor and contact of the bands performing at the most recent concert in the Royal Albert Hall. (1 point possible)
+
+select band_name,m.m_name,m1.m_name from band b,musician m,musician m1,performance p,concert con where con.concert_no=p.performed_in and concert_no = 6 and p.gave=b.band_no and m.m_no=p.conducted_by and m1.m_no=b.band_contact;
+
+Somebody Loves this|Alan Fluff|Theo Mengel
+
+14)Give a list of musicians associated with Glasgow. Include the name of the musician and the nature of the association - one or more of 'LIVES_IN', 'BORN_IN', 'PERFORMED_IN' AND 'IN_BAND_IN'. (1 point possible)
+
+select m_name,'born_in' from musician where born_in =6 union select m_name,'lives_in' from musician where living_in=6;
+
+Andy Jones|lives_in
+Harriet Smithson|lives_in
+James Steeple|lives_in
+Jeff Dawn|lives_in
+Louise Simpson|born_in
+Louise Simpson|lives_in
+Lovely Time|born_in
+Steven Chaytors|born_in
+
+15)Jeff Dawn plays in a band with someone who plays in a band with Sue Little. Who is it and what are the bands? (1 point possible)
+
 
 
 
