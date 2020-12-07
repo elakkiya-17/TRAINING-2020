@@ -45,35 +45,15 @@ John|12|Haley|10
 
 6)Find names and grades of students who only have friends in the same grade. Return the result sorted by grade, then by name within each grade. (1 point possible)
 
-select h.name, h.grade from highschooler h inner join friend f on h.id=f.id1 inner join highschooler h1 on h1.id=f.id2 where h.grade=h1.grade order by h.grade,h.name;
+select name, grade from highschooler where id not in (select id1 from highschooler h1, friend, highschooler h2 where h1.id = friend.id1 and friend.id2 = h2.id and h1.grade <> h2.grade)order by grade, name;
 
-Cassandra|9
-Gabriel|9
-Gabriel|9
 Jordan|9
-Jordan|9
-Tiffany|9
-Andrew|10
-Brittany|10
 Brittany|10
 Haley|10
-Haley|10
 Kris|10
-Kris|10
-Kris|10
-Alexis|11
-Alexis|11
 Gabriel|11
-Gabriel|11
-Jessica|11
-Jessica|11
 John|12
-Jordan|12
-Jordan|12
-Kyle|12
 Logan|12
-Logan|12
-
 7)
 
 
