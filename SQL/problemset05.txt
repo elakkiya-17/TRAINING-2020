@@ -108,6 +108,22 @@ Theo Mengel|London
 
 12)Create a list showing for EVERY musician born in Britain the number of compositions and the number of instruments played. (1 point possible)
 
+select m_name,count(cmpr_no),count(instrument) from musician m left join composer c on c.comp_is=m.m_no left join performer p on m.m_no=p.perf_is left join has_composed hc on c.comp_no=hc.cmpr_no where born_in not in(3,4,8,9) group by m_name;
+
+Alan Fluff|0|2
+Andy Jones|1|0
+Davis Heavan|0|3
+Fred Bloggs|2|0
+Harriet Smithson|0|2
+Harry Forte|6|6
+James First|4|4
+James Steeple|0|0
+Louise Simpson|0|3
+Lovely Time|2|0
+Phil Hot|3|0
+Steven Chaytors|0|0
+Theo Mengel|0|3
+
 
 
 13)Give the band name, conductor and contact of the bands performing at the most recent concert in the Royal Albert Hall. (1 point possible)
